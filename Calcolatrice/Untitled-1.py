@@ -1,0 +1,94 @@
+from tkinter import *
+from tkinter import ttk
+
+
+#mainwindow settings
+window = Tk()
+window.geometry("380x330")
+window.title("Calculator")
+window.resizable(0,0)
+window.iconbitmap("C:\\Users\\luigi\\OneDrive\\Desktop\\Python\\Calcolatrice\\calc.ico")
+#variables
+fieldtext=""
+#functions
+def buttonclick(n1):
+    display.config(state="normal")
+    global fieldtext
+    fieldtext=fieldtext+str(n1)
+    display.delete("1.0","end")
+    display.insert("1.0",fieldtext)
+    display.config(state="disabled")
+def evaluate():
+    try:
+        display.config(state="normal")
+        global fieldtext
+        result=str(eval(fieldtext))
+        display.delete("1.0","end")
+        display.insert("1.0",result)
+        display.config(state="disabled")
+    except:
+        display.config(state="normal")
+        display.delete("1.0","end")
+        display.insert("1.0","Invalid operation")
+        display.config(state="disabled")
+def clear():
+    global fieldtext
+    display.config(state="normal")
+    fieldtext=""
+    display.delete("1.0","end")
+    display.insert("1.0",0)
+    display.config(state="disabled")
+
+
+
+#widget section
+MainFrame=Frame(window,width=400,height=200,bg="black")
+display=Text(MainFrame,height=2,width=40,state="disabled")
+button1=ttk.Button(MainFrame,width=10,text="1",command=lambda :buttonclick(1))
+button2=ttk.Button(MainFrame,width=10,text="2",command=lambda :buttonclick(2))
+button3=ttk.Button(MainFrame,width=10,text="3",command=lambda :buttonclick(3))
+button4=ttk.Button(MainFrame,width=10,text="4",command=lambda :buttonclick(4))
+button5=ttk.Button(MainFrame,width=10,text="5",command=lambda :buttonclick(5))
+button6=ttk.Button(MainFrame,width=10,text="6",command=lambda :buttonclick(6))
+button7=ttk.Button(MainFrame,width=10,text="7",command=lambda :buttonclick(7))
+button8=ttk.Button(MainFrame,width=10,text="8",command=lambda :buttonclick(8))
+button9=ttk.Button(MainFrame,width=10,text="9",command=lambda :buttonclick(9))
+button0=ttk.Button(MainFrame,width=10,text="0",command=lambda :buttonclick(0))
+buttonadd=ttk.Button(MainFrame,width=10,text="+",command=lambda :buttonclick("+"))
+buttonmin=ttk.Button(MainFrame,width=10,text="-",command=lambda :buttonclick("-"))
+buttonmul=ttk.Button(MainFrame,width=10,text="X",command=lambda :buttonclick("*"))
+buttondiv=ttk.Button(MainFrame,width=10,text="/",command=lambda :buttonclick("/"))
+buttonequals=ttk.Button(MainFrame,width=10,text="=",command=evaluate)
+buttonclear=ttk.Button(MainFrame,width=10,text="Clear",command=clear)
+comma=ttk.Button(MainFrame,text=",",width=10,command=lambda:buttonclick("."))
+quitbutt=ttk.Button(MainFrame,text="Quit",width=10,command=window.destroy)
+#style
+style=ttk.Style(window)
+style.theme_use("clam")
+
+
+#layout
+MainFrame.pack(fill="both",expand=True)
+display.grid(row=0,column=0, columnspan=4, padx=10, pady=10)
+button1.grid(row=1,column=0,pady=10)
+button2.grid(row=1,column=1,pady=10)
+button3.grid(row=1,column=2,pady=10)
+button4.grid(row=2,column=0,pady=10)
+button5.grid(row=2,column=1,pady=10)
+button6.grid(row=2,column=2,pady=10)
+button7.grid(row=3,column=0,pady=10)
+button8.grid(row=3,column=1,pady=10)
+button9.grid(row=3,column=2,pady=10)
+button0.grid(row=4,column=0,pady=10)
+buttonadd.grid(row=1,column=3,pady=10)
+buttonmin.grid(row=2,column=3,pady=10)
+buttonmul.grid(row=3,column=3,pady=10)
+buttondiv.grid(row=4,column=3,pady=10)
+buttonequals.grid(row=4,column=1,pady=10)
+buttonclear.grid(row=4,column=2,pady=10)
+comma.grid(row=5,column=0,pady=10)
+quitbutt.grid(row=5,column=3,pady=10)
+
+
+
+window.mainloop()
